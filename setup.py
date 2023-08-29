@@ -12,7 +12,7 @@ else:
 setup(
     name="cron-validator",
     packages=["cron_validator"],
-    version="1.0.8",
+    version="1.0.9",
     license="MIT",
     description="Unix cron implementation by Python",
     long_description=long_description,
