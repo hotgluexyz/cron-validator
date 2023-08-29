@@ -194,7 +194,21 @@ class MatchListElement(Element):
         possible_values = body.split(",")
         self.values = set()
         for value in possible_values:
-            self.values.add(int(value))
+            if "-" in value:
+                ranges = value.split("-")
+                from_value = int(ranges[0])
+                to_value = int(ranges[1])
+                self.values = set()
+                if from_value <= to_value:
+                    for i in range(from_value, to_value + 1):
+                        self.values.add(i)
+                else:
+                    for i in range(from_value, self.max_value_map[self.part] + 1):
+                        self.values.add(i)
+                    for i in range(0, to_value + 1):
+                        self.values.add(i)
+            else:
+                self.values.add(int(value))
 
     def match(self, dt):
         if self._get_value(dt) in self.values:
